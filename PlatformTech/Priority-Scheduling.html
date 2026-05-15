@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <title>CPU Scheduling</title>
+        <style>
+
+            /* General Page Styling */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f9f9f9;
+                color: #333;
+            }
+            
+            h1, h2, h3 {
+                text-align: center;
+                color: #222;
+            }
+
+
+            /* Form and Inputs */
+            label {
+                font-weight: bold;
+                margin-right: 10px;
+            }
+
+            input, select, button {
+                margin: 5px;
+                padding: 6px 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            
+            button {
+                background-color: #4CAF50;
+                color: white;
+                cursor: pointer;
+                border: none;
+            }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+            
+            /* Tables */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 15px;
+                background-color: white;
+            }
+
+            th, td {
+                border: 1px solid #ccc;
+                padding: 8px;
+                text-align: center;
+            }
+
+            th {
+                background-color: #eee;
+            }
+
+            
+            /* Results Section */
+            #AVG-Results {
+                margin-top: 15px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            
+            /* Gantt Chart */
+            .Gantt-Container {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 20px;
+                gap: 0;
+                row-gap: 40px;
+                justify-content: center;
+            }
+
+            .Gantt-Block {
+                border: 1px solid #333;
+                height: 40px;
+                text-align: center;
+                line-height: 40px;
+                position: relative;
+                min-width: 40px;
+                box-sizing: border-box;
+                margin-bottom: 25px;
+                padding: 0 10px;
+            }
+
+            .Time-Label {
+                position: absolute;
+                bottom: -25px;
+                font-size: 12px;
+                color: #555;
+                white-space: nowrap;
+            }
+
+            .Start-Time {
+                left: 0;
+            }
+
+            .End-Time {
+                right: 0;
+                color: #800080;
+            }
+
+            .idle {
+                background-color: #bbb;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Priority Scheduling Simulator</h1>
+            
+
+        <!-- ALGORITHM SELECTION -->
+        <label>1. Select Type of Priority Scheduling:</label>
+            <select>
+                <option value = "Preemptive">Preemptive</option>
+                <option value = "Non-Preemptive">Non-Preemptive</option>
+            </select>
+
+        <br>
+
+
+        <!--PROCESS INPUT -->
+        <label>2. Add Process:</label>
+            <input type = "text" id = "PID" placeholder = "Process ID" required>
+            <input type = "number" id = "AT" placeholder = "Arrival Time (AT)" min="0" required><!--Error Handling meaning no negative values-->
+            <input type = "number" id = "BT" placeholder = "Burst Time (BT)" min="1" required><!--Error Handling meaning no zero and negative values-->
+            <input type = "number" id = "Pri" placeholder = "Priority" min="1" required><!--Error Handling meaning no zero and negative values-->
+
+        <button onclick = "AddProcess()">Add Process</button>
+
+
+        <!--INPUT TABLE-->
+        <table id = "InputTable">
+            <thead>
+                <tr>
+                    <th>Process ID</th>
+                    <th>Arrival Time (AT)</th>
+                    <th>Burst Time (BT)</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <button class = "Button-Run" onclick = "RunSimulator()">Run Simulator</button>
+
+        <h2>Simulation Results:</h2>
+
+
+        <!-- OUTPUT METRICS -->
+        <table id = "ResultsTable">
+            <thead>
+                <tr>
+                    <th>Process ID</th>
+                    <th>Arrival Time (AT)</th>
+                    <th>Burst Time (BT)</th>
+                    <th>Priority</th>
+                    <th>Completion Time (CT)</th>
+                    <th>Turnaround Time (TAT)</th>
+                    <th>Waiting Time (WT)</th>
+                </tr>
+            </thead>
+            <br>
+            <br>
+            <tbody></tbody>
+        </table>
+        
+        <div id = "AVG-Results"></div>
+
+        <h3>Gantt Chart</h3>
+
+        <div id = "Gantt-Chart" class = "Gantt-Container"></div>
+
+        <script src="priority script.js"></script>
+    </body>
+</html>
